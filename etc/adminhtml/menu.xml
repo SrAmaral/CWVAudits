@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webjump_CWVAudit::menu" title="Core Web Vitals Audit" translate="Core Web Vitals Audit" module="Webjump_CWVAudit" sortOrder="50" action="cwvaudit/index" resource="Webjump_CWVAudit::index"/>
+        <add id="Webjump_CWVAudit::config" title="Configuration" translate="Configuration" module="Webjump_CWVAudit"  parent="Webjump_CWVAudit::menu" action="cwvaudit/index/configuration" resource="Webjump_CWVAudit::configuration"/>
+        <add id="Webjump_CWVAudit::datas" title="Datas" translate="Datas" module="Webjump_CWVAudit"  parent="Webjump_CWVAudit::menu" action="cwvaudit/index/datas" resource="Webjump_CWVAudit::datas"/>
+        <add id="Webjump_CWVAudit::charts" title="Charts" translate="Charts" module="Webjump_CWVAudit"  parent="Webjump_CWVAudit::menu" action="cwvaudit/index/charts" resource="Webjump_CWVAudit::charts"/>
+    </menu>
+</config>

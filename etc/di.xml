@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="cwv_audit_list_data_source" xsi:type="string">cwvAuditCollection</item>
+                <item xsi:type="string" name="cwv_audit_test_data_source">DataProvider</item>
+                <item xsi:type="string" name="cwv_testte_data_source">DataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="cwvAuditCollection" type="Webjump\CWVAudit\Ui\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cwv_audit</argument>
+            <argument name="resourceModel" xsi:type="string">Webjump\CWVAudit\Model\ResourceModel\CWVAudit</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="resourceModel" xsi:type="string">Webjump\CWVAudit\Model\ResourceModel\CWVAudit\Collection
+            </argument>
+            <argument name="mainTable" xsi:type="string">cwv_audit</argument>
+        </arguments>
+    </virtualType>
+
+    <preference for="Webjump\CWVAudit\Api\CWVAuditRepositoryInterface" type="Webjump\CWVAudit\Model\CWVAuditRepository"/>
+
+    <type name="Webjump\CWVAudit\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Webjump\CWVAudit\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">CWVAudit_Custom_Log</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webjump\CWVAudit\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

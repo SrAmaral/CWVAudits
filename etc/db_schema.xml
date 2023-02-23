@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="cwv_audit" resource="default" engine="innodb"
+           comment="Core web Vitals Audit pages">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="text" name="url" nullable="true"/>
+        <column xsi:type="double" name="performace" nullable="true"/>
+        <column xsi:type="double" name="Frist_Content_Paint" nullable="true"/>
+        <column xsi:type="double" name="Speed_Index" nullable="true"/>
+        <column xsi:type="double" name="Largest_Contentful_Paint" nullable="true"/>
+        <column xsi:type="double" name="Time_To_Interactive" nullable="true"/>
+        <column xsi:type="double" name="Total_Blocking_Time" nullable="true"/>
+        <column xsi:type="double" name="Cumulative_Layout_Shift" nullable="true"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

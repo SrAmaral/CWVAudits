@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">cwv_audit_list.cwv_audit_list_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>products_display_columns</spinner>
+        <deps>
+            <dep>cwv_audit_list.cwv_audit_list_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="cwv_audit_list_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Webjump\CWVAudit\Ui\ListingDataProvider</argument>
+            <argument name="name" xsi:type="string">cwv_audit_list_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">entity_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <columns name="products_display_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="resizeConfig" xsi:type="array">
+                    <item name="enabled" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </argument>
+
+
+        <column name="entity_id">
+            <settings>
+                <label translate="true">Id</label>
+            </settings>
+        </column>
+
+        <column name="url">
+            <settings>
+                <label translate="true">url</label>
+            </settings>
+        </column>
+
+        <column name="performace">
+            <settings>
+                <label translate="true">performace</label>
+            </settings>
+        </column>
+
+        <column name="Frist_Content_Paint">
+            <settings>
+                <label translate="true">Frist_Content_Paint</label>
+            </settings>
+        </column>
+
+        <column name="Speed_Index">
+            <settings>
+                <label translate="true">Speed_Index</label>
+            </settings>
+        </column>
+
+        <column name="Largest_Contentful_Paint">
+            <settings>
+                <label translate="true">Largest_Contentful_Paint</label>
+            </settings>
+        </column>
+
+        <column name="Time_To_Interactive">
+            <settings>
+                <label translate="true">Time_To_Interactive</label>
+            </settings>
+        </column>
+
+        <column name="Total_Blocking_Time">
+            <settings>
+                <label translate="true">Total_Blocking_Time</label>
+            </settings>
+        </column>
+
+        <column name="Cumulative_Layout_Shift">
+            <settings>
+                <label translate="true">Cumulative_Layout_Shift</label>
+            </settings>
+        </column>
+
+        <column name="updated_at">
+            <settings>
+                <label translate="true">Data</label>
+            </settings>
+        </column>
+
+
+
+    </columns>
+</listing>
