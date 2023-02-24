@@ -3,19 +3,25 @@
 namespace Webjump\CWVAudit\Cron;
 
 use Webjump\CWVAudit\Logger\Logger;
-use Webjump\CWVAudit\Model\ResourceModel\CWVAudit\Collection;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\HTTP\AsyncClientInterface;
-use Magento\Framework\HTTP\AsyncClient\Request;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientFactory;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\ResponseFactory;
+use Magento\Framework\Webapi\Rest\Request;
 
 class Audits
 {
+
+    const API_REQUEST_URI = 'https://www.googleapis.com';
+    const API_REQUEST_ENDPOINT = 'pagespeedonline/v5/runPagespeed';
     public function __construct(
         private Logger $logger,
-        private Collection $collection,
         private ScopeConfigInterface $scopeConfig,
-        private AsyncClientInterface $asyncClient,
-        private Request $request
+        private ClientFactory $clientFactory,
+        private ResponseFactory $responseFactory
     ){}
 
         public function execute()
@@ -30,10 +36,59 @@ class Audits
         $sanatizedUrls = array_filter($urlsAudits, 'strlen');
 
 
-        $result = $this->asyncClient->request(new Request("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={$sanatizedUrls[0]}&strategy=mobile", 'GET', ['Accept' => 'application/json'], null));
 
-        $this->logger->info(json_encode($result->get()->getBody()));
-        $this->logger->info('aii papito');
+        foreach($sanatizedUrls as $url){
+            $params = "?url=https://{$url}&strategy=mobile";
+            $response = $this->doRequest(static::API_REQUEST_ENDPOINT, $params);
+            $status = $response->getStatusCode();
+            $responseBody = $response->getBody();
+            $responseContent = json_decode($responseBody->getContents(), true);
+            $this->logger->info($url);
+            $this->logger->info($status);
+
+
+
+            $metricsAudit = [
+                "page" => $url,
+                "performace" => number_format($responseContent["lighthouseResult"]["categories"]["performance"]["score"]*100, 0, '.', ''),
+                "Frist_Content_Paint" => number_format($responseContent["lighthouseResult"]["audits"]["first-contentful-paint"]["numericValue"]/1000, 1, '.', ''),
+                "Speed_Index" => number_format($responseContent["lighthouseResult"]["audits"]["speed-index"]["numericValue"]/1000, 1, '.', ''),
+                "Largest_Contentful_Paint" => number_format($responseContent["lighthouseResult"]["audits"]["largest-contentful-paint"]["numericValue"]/1000, 1, '.', ''),
+                "Time_To_Interactive" => number_format($responseContent["lighthouseResult"]["audits"]["interactive"]["numericValue"]/1000, 1, '.', ''),
+                "Total_Blocking_Time" => number_format($responseContent["lighthouseResult"]["audits"]["total-blocking-time"]["numericValue"], 3, '.', ''),
+                "Cumulative_Layout_Shift" => number_format($responseContent["lighthouseResult"]["audits"]["cumulative-layout-shift"]["numericValue"], 3, '.', ''),
+            ];
+
+            $this->logger->info(json_encode($metricsAudit));
+        }
+    }
+
+    private function doRequest(
+        string $uriEndpoint,
+        string $params = '',
+        string $requestMethod = Request::HTTP_METHOD_GET
+    ): Response {
+
+        $paramss = json_encode($params);
+        /** @var Client $client */
+        $client = $this->clientFactory->create(['config' => [
+            'base_uri' => self::API_REQUEST_URI
+        ]]);
+        try {
+            $response = $client->request(
+                $requestMethod,
+                $uriEndpoint.$params,
+            );
+        } catch (GuzzleException $exception) {
+            /** @var Response $response */
+            $response = $this->responseFactory->create([
+                'status' => $exception->getCode(),
+                'reason' => $exception->getMessage()
+            ]);
+            $this->logger->info($exception->getMessage());
+        }
+
+        return $response;
     }
 
 }
