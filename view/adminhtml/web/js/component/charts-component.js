@@ -18,8 +18,6 @@ define([
                 this._super()
                 self = this;
 
-                self.getLists()
-
                 self.audits.subscribe(() => {
                     this.prepareData()
                 })
@@ -33,7 +31,7 @@ define([
                     self.audits(response)
                 })
                 .always(() => {
-                    $('.charts-wrapper').trigger('processStop') // Remove 0 spiner de loading na pagina
+                    $('.charts-wrapper').trigger('processStop')
                 })
             },
 
@@ -124,7 +122,6 @@ define([
                     labels: labels,
                     datasets: [...dataSets]
                 }
-
                 let canvas = document.getElementById('myChart')
 
                 let config = new ChartConfig(data, options, type )

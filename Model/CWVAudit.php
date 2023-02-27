@@ -156,6 +156,22 @@ class CWVAudit extends AbstractModel implements CWVAuditInterface{
         return $this->setData(self::CUMULATIVE_LAYOUT_SHIFT, $cls);
     }
 
+    public function getJson()
+    {
+        return $this->getData(self::CUMULATIVE_LAYOUT_SHIFT);
+    }
+
+    /**
+     * @param $cls
+     * @return CWVAudit
+     */
+    public function setJson($json)
+    {
+        return $this->setData(self::JSON, $json);
+    }
+
+
+
     /**
      * @return array|mixed|null
      */

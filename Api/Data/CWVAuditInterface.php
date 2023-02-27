@@ -18,6 +18,7 @@ interface CWVAuditInterface
     const TIME_TO_INTERACTIVE = 'Time_To_Interactive';
     const TOTAL_BLOCKING_TIME = 'Total_Blocking_Time';
     const CUMULATIVE_LAYOUT_SHIFT = 'Cumulative_Layout_Shift';
+    const JSON = 'json';
     const UPDATED_AT = 'updated_at';
 
 
@@ -27,8 +28,8 @@ interface CWVAuditInterface
     public function getId();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $value
+     * @return mixed
      */
     public function setId($value);
 
@@ -38,8 +39,8 @@ interface CWVAuditInterface
     public function getUrl();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $url
+     * @return mixed
      */
     public function setUrl($url);
 
@@ -49,8 +50,8 @@ interface CWVAuditInterface
     public function getPerformace();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $performace
+     * @return mixed
      */
     public function setPerformace($performace);
 
@@ -60,8 +61,8 @@ interface CWVAuditInterface
     public function getFirstContentPaint();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $fcp
+     * @return mixed
      */
     public function setFirstContentPaint($fcp);
 
@@ -71,8 +72,8 @@ interface CWVAuditInterface
     public function getSpeedIndex();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $speedIndex
+     * @return mixed
      */
     public function setSpeedIndex($speedIndex);
 
@@ -82,8 +83,8 @@ interface CWVAuditInterface
     public function getLargestContentPaint();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $lcp
+     * @return mixed
      */
     public function setLargestContentPaint($lcp);
 
@@ -93,8 +94,8 @@ interface CWVAuditInterface
     public function getTimeToInteractive();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $tti
+     * @return mixed
      */
     public function setTimeToInteractive($tti);
 
@@ -104,8 +105,8 @@ interface CWVAuditInterface
     public function getTotalBlockingTime();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $tbt
+     * @return mixed
      */
     public function setTotalBlockingTime($tbt);
 
@@ -115,10 +116,21 @@ interface CWVAuditInterface
     public function getCumulativeLayoutShift();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $cls
+     * @return mixed
      */
     public function setCumulativeLayoutShift($cls);
+
+    /**
+     * @return mixed
+     */
+    public function getJson();
+
+    /**
+     * @param $json
+     * @return mixed
+     */
+    public function setJson($json);
 
     /**
      * @return mixed
@@ -126,8 +138,8 @@ interface CWVAuditInterface
     public function getUpdateAt();
 
     /**
-     * @param int $value
-     * @return $this
+     * @param $updateAt
+     * @return mixed
      */
     public function setUpdateAt($updateAt);
 

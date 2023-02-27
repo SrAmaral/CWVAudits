@@ -2,9 +2,10 @@
 
 namespace Webjump\CWVAudit\Cron;
 
+use Magento\Framework\Exception\CouldNotSaveException;
 use Webjump\CWVAudit\Logger\Logger;
+use Webjump\CWVAudit\Model\ResourceModel\CWVAudit;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\HTTP\AsyncClientInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientFactory;
 use GuzzleHttp\Exception\GuzzleException;
@@ -19,9 +20,10 @@ class Audits
     const API_REQUEST_ENDPOINT = 'pagespeedonline/v5/runPagespeed';
     public function __construct(
         private Logger $logger,
+        private CWVAudit $CWVAudit,
         private ScopeConfigInterface $scopeConfig,
         private ClientFactory $clientFactory,
-        private ResponseFactory $responseFactory
+        private ResponseFactory $responseFactory,
     ){}
 
         public function execute()
@@ -55,11 +57,31 @@ class Audits
                 "Speed_Index" => number_format($responseContent["lighthouseResult"]["audits"]["speed-index"]["numericValue"]/1000, 1, '.', ''),
                 "Largest_Contentful_Paint" => number_format($responseContent["lighthouseResult"]["audits"]["largest-contentful-paint"]["numericValue"]/1000, 1, '.', ''),
                 "Time_To_Interactive" => number_format($responseContent["lighthouseResult"]["audits"]["interactive"]["numericValue"]/1000, 1, '.', ''),
-                "Total_Blocking_Time" => number_format($responseContent["lighthouseResult"]["audits"]["total-blocking-time"]["numericValue"], 3, '.', ''),
+                "Total_Blocking_Time" => number_format($responseContent["lighthouseResult"]["audits"]["total-blocking-time"]["numericValue"], 0, '', ''),
                 "Cumulative_Layout_Shift" => number_format($responseContent["lighthouseResult"]["audits"]["cumulative-layout-shift"]["numericValue"], 3, '.', ''),
             ];
 
             $this->logger->info(json_encode($metricsAudit));
+
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+            $model = $objectManager->create(\Webjump\CWVAudit\Model\CWVAudit::class);
+
+            $model->setUrl($url);
+            $model->setPerformace(intval($metricsAudit["performace"]));
+            $model->setFirstContentPaint(doubleval($metricsAudit["Frist_Content_Paint"]));
+            $model->setSpeedIndex(doubleval($metricsAudit["Speed_Index"]));
+            $model->setLargestContentPaint(doubleval($metricsAudit["Largest_Contentful_Paint"]));
+            $model->setTimeToInteractive(doubleval($metricsAudit["Time_To_Interactive"]));
+            $model->setTotalBlockingTime(doubleval($metricsAudit["Total_Blocking_Time"]));
+            $model->setCumulativeLayoutShift(doubleval($metricsAudit["Cumulative_Layout_Shift"]));
+            $model->setJson(json_encode($responseContent));
+
+
+            $this->CWVAudit->save($model);
+
+
+
         }
     }
 
@@ -85,7 +107,7 @@ class Audits
                 'status' => $exception->getCode(),
                 'reason' => $exception->getMessage()
             ]);
-            $this->logger->info($exception->getMessage());
+            $this->logger->error($exception->getMessage());
         }
 
         return $response;

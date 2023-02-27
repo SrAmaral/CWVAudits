@@ -12,6 +12,7 @@
         <column xsi:type="double" name="Time_To_Interactive" nullable="true"/>
         <column xsi:type="double" name="Total_Blocking_Time" nullable="true"/>
         <column xsi:type="double" name="Cumulative_Layout_Shift" nullable="true"/>
+        <column xsi:type="longtext" name="json" nullable="true"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Date"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
