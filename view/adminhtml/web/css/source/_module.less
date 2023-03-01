@@ -1,0 +1,123 @@
+& when (@media-common = true) {
+  .cwvaudit-wrapper-dash {
+    display: flex;
+    justify-content: space-between;
+  }
+  .home-performace {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 30px;
+
+    h2 {
+      color: #666666;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .url-home {
+      color: #666666;
+      font-weight: 700;
+    }
+
+    .lh-scorescale-range {
+      &::before {
+        content: '';
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        margin: 0 14px 0 6px;
+      }
+    }
+
+    .lh-scorescale-range--fail {
+      &::before {
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 12px solid #FF3333;
+      }
+    }
+    .lh-scorescale-range--average {
+      &::before {
+        background: #FFAA33;
+      }
+    }
+    .lh-scorescale-range--pass {
+      &::before {
+        border-radius: 100%;
+        background: #00CC66;
+      }
+    }
+
+    .performace-cirlce {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+
+      span {
+        font-size: 32px;
+        font-weight: 700;
+      }
+    }
+
+    .metric-legend {
+      color: #666666;
+      font-weight: 700;
+    }
+    .columns-wrapper {
+      display: flex;
+      gap: 25px;
+      .column {
+        display: flex;
+        flex-direction: column;
+
+        .metric {
+          display: flex;
+          gap: 5px;
+
+          > p{
+            font-size: 25px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .audit-data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      color: #666666;
+      font-weight: 700;
+    }
+
+  }
+
+  .chart-dash {
+    width: 1000px;
+    height: 500px;
+
+    .myChartClass {
+      margin-bottom: 30px;
+    }
+  }
+
+  label {
+    color: #666666;
+    font-weight: 700;
+  }
+
+  input, select {
+    border: 1px solid #666666;
+    border-radius: 10px;
+    padding: 5px;
+    background: #fff;
+    color: #666666;
+    font-weight: 500;
+  }
+}

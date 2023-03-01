@@ -20,6 +20,10 @@
                     <label>Urls</label>
                     <comment>Write urls with "," between, example: url, url, url</comment>
                 </field>
+                <field id="url_home" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Home</label>
+                    <comment>select url project home</comment>
+                </field>
             </group>
         </section>
     </system>

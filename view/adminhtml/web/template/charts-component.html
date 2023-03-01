@@ -1,1 +1,66 @@
-<canvas id="myChart" class="myChartClass" data-bind="afterRender: getLists()" ></canvas>
+<div class="cwvaudit-wrapper-dash">
+    <div class="home-performace">
+        <h2>Ultima audição da Home</h2>
+
+        <span class="url-home" data-bind="text: homeAudit().url"></span>
+
+        <div class="performace-cirlce" data-bind="style: {background: getBackgorundPerformace(homeAudit().performace)}">
+            <span data-bind="text: homeAudit().performace, style: {color: getTextColor('performace', homeAudit().performace)}"></span>
+        </div>
+        <div class="lh-scorescale">
+            <span class="lh-scorescale-range lh-scorescale-range--fail">0–49</span>
+            <span class="lh-scorescale-range lh-scorescale-range--average">50–89</span>
+            <span class="lh-scorescale-range lh-scorescale-range--pass">90–100</span> </div>
+        <div class="columns-wrapper">
+            <div class="column">
+                <span class="metric-legend">First Contentful Paint</span>
+                <div class="metric" data-bind="style: {color: getTextColor('first_content_paint', homeAudit().first_content_paint)}">
+                    <p data-bind="text: homeAudit().first_content_paint"></p>
+                    <p>s</p>
+                </div>
+                <span class="metric-legend">Speed Index</span>
+                <div class="metric" data-bind="style: {color: getTextColor('speed_index', homeAudit().speed_index)}">
+                    <p data-bind="text: homeAudit().speed_index"></p>
+                    <p>s</p>
+                </div>
+                <span class="metric-legend">Largest Contentful Paint</span>
+                <div class="metric" data-bind="style: {color: getTextColor('largest_content_paint', homeAudit().largest_content_paint)}">
+                    <p data-bind="text: homeAudit().largest_content_paint"></p>
+                    <p>s</p>
+                </div>
+            </div>
+            <div class="column">
+                <span class="metric-legend">Time to Interactive</span>
+                <div class="metric" data-bind="style: {color: getTextColor('time_to_interactive', homeAudit().time_to_interactive)}">
+                    <p data-bind="text: homeAudit().time_to_interactive"></p>
+                    <p>s</p>
+                </div>
+                <span class="metric-legend">Total Blocking Time</span>
+                <div class="metric" data-bind="style: {color: getTextColor('total_blocking_time', homeAudit().total_blocking_time)}">
+                    <p data-bind="text: homeAudit().total_blocking_time"></p>
+                    <p>ms</p>
+                </div>
+                <span class="metric-legend">Cumulative Layout Shift</span>
+                <div class="metric" data-bind="style: {color: getTextColor('cumulative_layout_shift', homeAudit().cumulative_layout_shift)}">
+                    <p data-bind="text: homeAudit().cumulative_layout_shift"></p>
+                </div>
+            </div>
+        </div>
+        <div class="audit-data">
+            <span>Data da audição:</span>
+            <span data-bind="text: homeAudit().update_at"></span>
+        </div>
+    </div>
+    <div class="chart-dash">
+        <canvas id="myChart" class="myChartClass" data-bind="afterRender: getLists()" ></canvas>
+        <label for="inital-date">A partir de:</label>
+        <input type="date" id="inital-date" name="inital-date"  data-bind="value: initialDay">
+        <label for="show-days">show days</label>
+        <select name="show-days" id="show-days" data-bind="value: showDays">
+            <option value="7">7</option>
+            <option value="14">14</option>
+            <option value="21">21</option>
+            <option value="28">28</option>
+        </select>
+    </div>
+</div>

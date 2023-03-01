@@ -1,4 +1,4 @@
-<h1>Teste</h1><?php
+<?php
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -8,15 +8,12 @@
 
 ?>
 
-<div class="charts-wrapper-dash" data-bind="scope: 'cwva_dash'" style="width: 1000px;height: 500px;margin: auto">
+<div class="charts-wrapper-dash" data-bind="scope: 'cwva_dash'" >
     <!-- ko template: getTemplate() --> <!-- /ko -->
 </div>
 
 <script type="text/x-magento-init">
     {
-        "*": {
-            "chartjs": {}
-        },
         ".charts-wrapper-dash": {
             "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout();?>
         }

@@ -27,6 +27,11 @@ interface CWVAuditRepositoryInterface {
     public function getByUrl();
 
     /**
+     * @return mixed
+     */
+    public function getHomeUrl();
+
+    /**
      * @param CWVAuditInterface $audit
      * @return CWVAuditInterface
      * @throws LocalizedException

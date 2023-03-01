@@ -6,4 +6,10 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+    <route method="GET" url="/V1/audits/config/home">
+        <service class="Webjump\CWVAudit\Api\CWVAuditRepositoryInterface" method="getHomeUrl"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
 </routes>
